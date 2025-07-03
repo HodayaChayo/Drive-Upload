@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>העלאה ל-Google Drive</title>
+  <link rel="stylesheet" href="index.css" />
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>העלאת קבצים ל־Google Drive</h1>
+  </header>
+  <main>
+    <form onsubmit="handleUpload(event)" enctype="multipart/form-data">
+      <input type="file" name="files" id="fileInput" onchange="showPreview()" multiple />
+      <br />
+      <button type="submit">העלה קבצים</button>
+    </form>
+    <p id="note"></p>
+    <div id="preview"></div>
+  </main>
+</body>
+</html>
