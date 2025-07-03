@@ -37,7 +37,7 @@ function handleUpload(event) {
         return;
     }
 
-    formNote.innerHTML = `<img src="loading.gif" alt="Loading..." />`;
+    formNote.innerHTML = `<img src="assets/loading.gif" alt="Loading..." />`;
     let successCount = 0;
     let finishedCount = 0;
 

@@ -8,11 +8,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
-const TOKEN_PATH = path.join(__dirname, 'token.json');
+const TOKEN_PATH = path.join(__dirname, '../tokens/token.json');
 
 // שימוש ב-web במקום installed
 export default async function authorize() {
-  const content = await fs.readFile(path.join(__dirname, 'credentials.json'));
+  const content = await fs.readFile(path.join(__dirname, '../tokens/credentials.json'));
   const credentials = JSON.parse(content);
   const { client_secret, client_id, redirect_uris } = credentials.web;
 
