@@ -1,5 +1,5 @@
 import { google } from 'googleapis';
-import authorize from './google-connection.js';
+import {clientOuthorize} from './google-connection.js';
 import { Readable } from 'stream';
 import iconv from 'iconv-lite';
 import multer from 'multer';
@@ -12,7 +12,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.post('/', upload.single('file'), async (req, res) => {
   try {
-    const auth = await authorize();
+    const auth = await clientOuthorize();
     const drive = google.drive({ version: 'v3', auth });
 
     const rawName = req.file.originalname;

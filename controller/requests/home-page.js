@@ -1,6 +1,7 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
+import {clientOuthorize} from './google-connection.js';
 
 const router = express.Router();
 
@@ -9,11 +10,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // הגשה של תיקיית client כסטטית
-router.use(express.static(path.join(__dirname, '../../client')));
+router.use('/static', express.static(path.join(__dirname, '../../client/static')));
 
-// שליחה של דף הבית כברירת מחדל
-router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'index.html'));
+// 2. שליחה של דף הבית בהתנייה
+router.get('/', async (req, res) => {
+  try {
+    const auth = await clientOuthorize();
+
+    if (!auth) {
+      return res.sendFile(path.join(__dirname, '../../client', 'no-access.html'));
+    }
+
+    return res.sendFile(path.join(__dirname, '../../client', 'index.html'));
+  } catch (error) {
+    console.error('Error in / route:', error);
+    res.status(500).send('Server error');
+  }
 });
 
 export default router;
