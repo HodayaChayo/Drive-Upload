@@ -6,18 +6,19 @@ window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
 
     // בדיקה אם יש פרמטר action
-    const action = urlParams.get('action');
-    if (action) {
-        fetch('/manager/action', {
+    const GDcode = urlParams.get('code');
+    if (GDcode) {
+        
+        fetch('/manager/GDcode', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ action }),
+            body: JSON.stringify({ GDcode }),
         })
             .then(response => response.json())
             .then(data => {
-            
+                window.location.href = '/';
             })
             .catch(error => {
                 console.error('❌ שגיאה בשליחת הפעולה:', error);
@@ -111,7 +112,7 @@ function reconnect() {
         .then(data => {
             if (data.url) {
                 // נפתח את הקישור בחלון חדש
-                window.open(data.url, '_blank');
+                window.location.href = data.url;
             } else {
                 alert('לא התקבל קישור התחברות מהשרת');
             }

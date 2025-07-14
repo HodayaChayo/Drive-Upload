@@ -11,6 +11,7 @@ const __dirname = path.dirname(__filename);
 
 // הגשה של תיקיית client כסטטית
 router.use('/static', express.static(path.join(__dirname, '../../client/static')));
+router.use('/assets', express.static(path.join(__dirname, '../../client/assets')));
 
 // 2. שליחה של דף הבית בהתנייה
 router.get('/', async (req, res) => {

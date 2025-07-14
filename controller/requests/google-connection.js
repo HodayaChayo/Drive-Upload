@@ -47,28 +47,8 @@ async function getUrlToConnect() {
     return authUrl;
 }
 
-async function getNewToken() {
+async function saveNewToken(code) {
     const oAuth2Client = await getAuthObj();
-    const authUrl = oAuth2Client.generateAuthUrl({
-        access_type: 'offline',
-        scope: SCOPES,
-        prompt: 'consent',
-    });
-
-    console.log('🔑 פתחי את הקישור הבא בדפדפן כדי לאשר גישה לחשבון שלך:');
-    console.log(authUrl);
-
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-    });
-
-    const code = await new Promise(resolve =>
-        rl.question('📥 הדביקי כאן את הקוד מהדפדפן: ', answer => {
-            rl.close();
-            resolve(answer);
-        }));
-
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
     await fs.writeFile(TOKEN_PATH, JSON.stringify(tokens));
@@ -76,4 +56,5 @@ async function getNewToken() {
     return oAuth2Client;
 }
 
-export { clientOuthorize, getNewToken, getUrlToConnect };
+
+export { clientOuthorize, getUrlToConnect, saveNewToken };
